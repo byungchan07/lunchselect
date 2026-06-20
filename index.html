@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘 뭐 먹지? 점심 메뉴 추천 룰렛</title>
+    <!-- Google Fonts: Outfit, Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 배경 장식용 흐려진 네온 원들 -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <div class="app-container">
+        <!-- 헤더 영역 -->
+        <header class="app-header">
+            <h1 class="logo">LUNCH<span>ROULETTE</span></h1>
+            <p class="subtitle">오늘 점심 메뉴 고민은 이제 끝! 돌려보세요.</p>
+        </header>
+
+        <main class="app-main">
+            <!-- 왼쪽 패널: 메뉴 등록 및 리스트 관리 -->
+            <section class="control-panel">
+                <!-- 메뉴 입력 섹션 -->
+                <div class="glass-card input-section">
+                    <h2>✏️ 메뉴 등록</h2>
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <input type="text" id="menu-input" placeholder="메뉴를 입력하세요 (예: 제육볶음)" autocomplete="off">
+                            <span id="char-counter" class="char-counter">0/8</span>
+                        </div>
+                        <button id="add-btn" class="btn btn-primary">등록</button>
+                    </div>
+                    <p id="input-error" class="error-message"></p>
+                </div>
+
+                <!-- 프리셋 섹션 -->
+                <div class="glass-card preset-section">
+                    <h2>⚡ 빠른 메뉴 프리셋</h2>
+                    <div class="preset-buttons">
+                        <button class="btn btn-preset" data-preset="korean">🇰🇷 한식</button>
+                        <button class="btn btn-preset" data-preset="chinese-japanese">🇨🇳🇯🇵 중·일식</button>
+                        <button class="btn btn-preset" data-preset="western">🇺🇸 양식/패스트푸드</button>
+                        <button class="btn btn-preset" data-preset="diet">🥗 다이어트/샐러드</button>
+                    </div>
+                </div>
+
+                <!-- 리스트 관리 섹션 -->
+                <div class="glass-card list-section">
+                    <div class="list-header">
+                        <h2>📋 등록된 메뉴 (<span id="menu-count">0</span>)</h2>
+                        <button id="clear-all-btn" class="btn btn-danger-link">전체 삭제</button>
+                    </div>
+                    <div class="list-wrapper">
+                        <ul id="menu-list" class="menu-list">
+                            <!-- JS를 통해 동적으로 메뉴 추가 -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 오른쪽 패널: 룰렛 시각화 및 플레이 -->
+            <section class="roulette-panel">
+                <div class="roulette-container">
+                    <!-- 상단 고정 바늘 -->
+                    <div class="roulette-needle">
+                        <svg viewBox="0 0 30 40" width="30" height="40">
+                            <polygon points="15,40 0,0 30,0" fill="var(--color-accent-pink)" />
+                        </svg>
+                    </div>
+                    
+                    <!-- 룰렛 캔버스 -->
+                    <div class="canvas-wrapper">
+                        <canvas id="roulette-canvas" width="500" height="500"></canvas>
+                        <!-- 중앙 START 버튼 -->
+                        <button id="spin-btn" class="spin-btn">
+                            <span>SPIN</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 결과 안내 모달 팝업 -->
+    <div id="result-modal" class="modal-overlay">
+        <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+        <div class="modal-content glass-card animate-pop">
+            <div class="modal-emoji">🎉</div>
+            <h3 class="modal-subtitle">오늘의 추천 점심 메뉴!</h3>
+            <h2 id="winner-name" class="winner-name">짜장면</h2>
+            <p id="winner-slogan" class="winner-slogan">침이 꼴깍 넘어가는 최고의 선택!</p>
+            
+            <!-- 지도 검색 연동 -->
+            <div class="map-links">
+                <a href="#" id="naver-map-link" target="_blank" rel="noopener noreferrer" class="btn btn-map btn-naver">
+                    <span class="icon">N</span> 네이버 지도에서 찾기
+                </a>
+                <a href="#" id="kakao-map-link" target="_blank" rel="noopener noreferrer" class="btn btn-map btn-kakao">
+                    <span class="icon">K</span> 카카오맵에서 찾기
+                </a>
+            </div>
+
+            <!-- 하단 닫기/다시돌리기 버튼 -->
+            <div class="modal-actions">
+                <button id="modal-close-btn" class="btn btn-secondary">확인</button>
+                <button id="modal-retry-btn" class="btn btn-primary-glow">다시 고르기</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "lunch-roulette",
+  "version": "1.0.0",
+  "description": "점심 메뉴 추천 룰렛",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y http-server . -p 3000"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
